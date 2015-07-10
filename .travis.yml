@@ -63,8 +63,8 @@ before_script:
   - "mysql -e 'create database codeception_test;'"
   - psql -c 'create database codeception_test;' -U postgres
   # staring demo servers
-  - php -S localhost:8000 -t tests/data/app >/dev/null 2>&1 &
-  - php -S localhost:8010 -t tests/data >/dev/null 2>&1 &
+  - php -S 127.0.0.1:8000 -t tests/data/app >/dev/null 2>&1 &
+  - php -S 127.0.0.1:8010 -t tests/data >/dev/null 2>&1 &
   # Phalcon
   - "mysql -e 'CREATE DATABASE forum;'"
   - cat frameworks-phalcon/schemas/forum.sql | mysql forum
