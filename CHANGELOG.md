@@ -8,7 +8,6 @@
 * Module Reference now contains documentation for hidden API methods which should be used in Helper classes
 * [WebDriver][PhpBrowser][Frameworks] `_findElements($locator)` method added to use in Helper classes *2015-07-11*
 
-
 #### 2.1.0
 
 * [Recorder](https://github.com/Codeception/Codeception/tree/master/ext#codeceptionextensionrecorder) extension added. Shows acceptance test progress with a recorded slideshow.
@@ -44,6 +43,10 @@
 * Duplicate environment options won't cause Codeception to run environment tests twice
 * [Phalcon1] `haveServiceInDi` method implemented by @sergeyklay
 * [Db] `seeNumRecords` method added by @sergeyklay
+
+#### 2.0.16
+* [Laravel5] Rewrite of module to fix open issues and other problems *2015-07-09*
+
 
 #### 2.0.15
 
