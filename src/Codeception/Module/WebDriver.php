@@ -1,6 +1,7 @@
 <?php
 namespace Codeception\Module;
 
+use Codeception\Lib\Interfaces\ElementLocator;
 use Codeception\Module as CodeceptionModule;
 use Codeception\TestCase;
 use Codeception\Exception\ConnectionException;
@@ -88,8 +89,6 @@ use Symfony\Component\DomCrawler\Crawler;
  *              capabilities:
  *                  unexpectedAlertBehaviour: 'accept'
  *                  firefox_profile: '/Users/paul/Library/Application Support/Firefox/Profiles/codeception-profile.zip.b64'
- *
- *
  * ## Locating Elements
  *
  * Most methods in this module that operate on a DOM element (e.g. `click`) accept a locator as the first argument, which can be either a string or an array.
@@ -114,12 +113,16 @@ use Symfony\Component\DomCrawler\Crawler;
  *
  * Be warned that fuzzy locators can be significantly slower than strict locators. If speed is a concern, it's recommended you stick with explicitly specifying the locator type via the array syntax.
  *
- * ## Migration Guide (Selenium2 -> WebDriver)
+ * ## Public Properties
  *
- * * `wait` method accepts seconds instead of milliseconds. All waits use second as parameter.
+ * * `webDriver` - instance of `\Facebook\WebDriver\Remote\RemoteWebDriver`. Can be accessed from Helper classes for complex WebDriver interactions.
  *
+ * ```php
+ * // inside Helper class
+ * $this->getModule('WebDriver')->webDriver->getKeyboard()->sendKeys('hello, webdriver');
+ * ```
  *
- * # Methods
+ * ## Methods
  */
 class WebDriver extends CodeceptionModule implements
     WebInterface,
@@ -127,7 +130,8 @@ class WebDriver extends CodeceptionModule implements
     MultiSessionInterface,
     SessionSnapshot,
     ScreenshotSaver,
-    PageSourceSaver
+    PageSourceSaver,
+    ElementLocator
 {
     protected $requiredFields = ['browser', 'url'];
     protected $config = [
@@ -248,6 +252,12 @@ class WebDriver extends CodeceptionModule implements
         $this->_reconfigure(['url' => $url]);
     }
 
+    /**
+     * Returns URL of a host.
+     * @api
+     * @return mixed
+     * @throws ModuleConfigException
+     */
     public function _getUrl()
     {
         if (!isset($this->config['url'])) {
@@ -259,6 +269,12 @@ class WebDriver extends CodeceptionModule implements
         return $this->config['url'];
     }
 
+    /**
+     * Uri of currently opened page.
+     * @return string
+     * @api
+     * @throws ModuleException
+     */
     public function _getCurrentUri()
     {
         $url = $this->webDriver->getCurrentURL();
@@ -278,6 +294,15 @@ class WebDriver extends CodeceptionModule implements
         }
     }
 
+    public function _findElements($locator)
+    {
+        return $this->match($this->webDriver, $locator);
+    }
+
+    /**
+     * Saves HTML source of a page to a file
+     * @param $filename
+     */
     public function _savePageSource($filename)
     {
         file_put_contents($filename, $this->webDriver->getPageSource());

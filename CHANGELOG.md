@@ -1,5 +1,14 @@
 # Changelog
 
+#### 2.1.1
+
+* [WebDriver] **Upgraded to facebook/webdrvier 1.0** *2015-07-11*
+  WebDriver classes were moved to `Facebook\WebDriver` namespace. Please take that into account when using WebDriver API directly.
+  Till 2.2 Codeception will keep non-namespaced aliases of WebDriver classes.
+* Module Reference now contains documentation for hidden API methods which should be used in Helper classes
+* [WebDriver][PhpBrowser][Frameworks] `_findElements($locator)` method added to use in Helper classes *2015-07-11*
+
+
 #### 2.1.0
 
 * [Recorder](https://github.com/Codeception/Codeception/tree/master/ext#codeceptionextensionrecorder) extension added. Shows acceptance test progress with a recorded slideshow.
