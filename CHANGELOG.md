@@ -8,6 +8,9 @@
 * Module Reference now contains documentation for hidden API methods which should be used in Helper classes
 * [WebDriver][PhpBrowser][Frameworks] `_findElements($locator)` method added to use in Helper classes *2015-07-11*
 
+* [PhpBrowser] Fixed `amOnUrl` method to open absolute URLs.
+* [Laravel5] Rewrite of module to fix open issues and other problems *2015-07-09*
+
 #### 2.1.0
 
 * [Recorder](https://github.com/Codeception/Codeception/tree/master/ext#codeceptionextensionrecorder) extension added. Shows acceptance test progress with a recorded slideshow.
